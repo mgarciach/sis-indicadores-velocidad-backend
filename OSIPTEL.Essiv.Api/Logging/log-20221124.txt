@@ -1,0 +1,7 @@
+2022-11-24T18:38:06.1296534-05:00 0HMMEEI2RCGVU:00000001 [ERR] ORA-12547: TNS:lost contact
+ (5844b1cb)
+2022-11-24T18:45:39.8970671-05:00 0HMMEEN9FNQ9B:00000005 [ERR] Input string was not in a correct format. (043ee2cb)
+2022-11-24T18:45:42.7214216-05:00 0HMMEEN9FNQ9B:00000006 [ERR] Input string was not in a correct format. (043ee2cb)
+2022-11-24T18:45:43.6880758-05:00 0HMMEEN9FNQ9B:00000007 [ERR] Input string was not in a correct format. (043ee2cb)
+2022-11-24T18:47:37.9578823-05:00 0HMMEEN9FNQ9B:00000008 [ERR] Input string was not in a correct format. (043ee2cb)
+2022-11-24T18:48:34.2694860-05:00 0HMMEEN9FNQ9B:00000009 [ERR] Input string was not in a correct format. (043ee2cb)

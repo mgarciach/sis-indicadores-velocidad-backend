@@ -1,0 +1,8 @@
+2022-12-18T13:38:01.2857668-05:00 0HMN14IN5CG51:00000017 [ERR] ORA-03113: end-of-file on communication channel
+Process ID: 7408
+Session ID: 26 Serial number: 26540
+ (50a07137)
+2022-12-18T13:38:01.2857666-05:00 0HMN14IN5CG51:00000013 [ERR] ORA-03113: end-of-file on communication channel
+Process ID: 7411
+Session ID: 262 Serial number: 5087
+ (1e748856)

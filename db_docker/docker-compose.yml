@@ -1,0 +1,21 @@
+version: "3.6"
+
+services:
+
+  oracle:
+    image: anietof/oracle-12c-initialized
+    container_name: oracle12c
+    volumes:      
+      - ./oracle-volume:/u01/app/oracle
+    ports:    
+      - 1521:1521
+      - 8080:8080
+    environment:      
+      oracle_password: root
+      oracle_database: db_sis_indicadores
+      app_user: dbuser
+      app_user_password: dbuser
+      DBCA_TOTAL_MEMORY: 1024
+
+volumes: 
+   oracle-volume:
