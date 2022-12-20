@@ -10,6 +10,7 @@ namespace OSIPTEL.DomainDto.Layer
     {
         public int IdCuadricula { get; set; }
         public string UbigeoCentroPoblado { get; set; }
+        public string NumeroCuadricula { get; set; }
         public decimal? Latitud1 { get; set; }
         public decimal? Longitud1 { get; set; }
 

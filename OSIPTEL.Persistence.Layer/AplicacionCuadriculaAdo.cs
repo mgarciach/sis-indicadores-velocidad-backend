@@ -86,6 +86,7 @@ namespace OSIPTEL.Persistence.Layer
                 Longitud3 = _oracleHelper.getDecimal(reader, "LONGITUD3"),
                 Latitud4 = _oracleHelper.getDecimal(reader, "LATITUD4"),
                 Longitud4 = _oracleHelper.getDecimal(reader, "LONGITUD4"),
+                NumeroCuadricula = _oracleHelper.getString(reader, "CUADRICULA")
             });
             return ListServ;
         }
