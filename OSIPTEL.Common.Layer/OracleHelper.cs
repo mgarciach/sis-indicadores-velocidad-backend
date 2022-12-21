@@ -90,6 +90,17 @@ namespace OSIPTEL.Common.Layer
 
             return null;
         }
+
+        public int? getInt32Null(DbDataReader _dr, string pClave)
+        {
+       
+            if (_dr[pClave] != DBNull.Value)
+            {
+                return Convert.ToInt32(_dr[pClave]);
+            }
+
+            return null;
+        }
         #endregion
     }
 }

@@ -2,25 +2,31 @@
 using OSIPTEL.Common.Layer;
 using OSIPTEL.Domain.Layer;
 using OSIPTEL.Persistence.Layer.Mapping;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OracleClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OSIPTEL.Persistence.Layer
 {
-    public interface IAplicacionSerieMovilAdo
+
+    public interface IAplicacionCoberturaAdo
     {
-        Task<List<SerieMovil>> GetAllSerieMovil();
+        Task<List<Cobertura>> GetAllCobertura();
     }
 
-    public class AplicacionSerieMovilAdo : IAplicacionSerieMovilAdo
+    public class AplicacionCoberturaAdo : IAplicacionCoberturaAdo
     {
         private readonly IDbConnection _dbConnection;
         private readonly ILogger _logger;
         private readonly OracleHelper _oracleHelper;
 
-        public AplicacionSerieMovilAdo(
+        public AplicacionCoberturaAdo(
            IDbConnection dbConnection,
-           ILogger<AplicacionSerieMovilAdo> logger,
+           ILogger<AplicacionPoligonoAdo> logger,
            OracleHelper oracleHelper
            )
         {
@@ -29,16 +35,16 @@ namespace OSIPTEL.Persistence.Layer
             _oracleHelper = oracleHelper;
         }
 
-        public async Task<List<SerieMovil>> GetAllSerieMovil()
+        public async Task<List<Cobertura>> GetAllCobertura()
         {
             OracleConnection context = null;
-            List<SerieMovil> response = null;
+            List<Cobertura> response = null;
             try
             {
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_SERIE_MOVIL", context))
+                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_COBERTURA", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -47,7 +53,8 @@ namespace OSIPTEL.Persistence.Layer
                         await context.OpenAsync();
                         using (var reader = await cmd.ExecuteReaderAsync())
                         {
-                            response = await MappingsDB.MapToValueListSerieMovil(_oracleHelper, reader);
+
+                            response = await MappingsDB.MapToValueListCobertura(_oracleHelper, reader);
 
                             reader.Close();
                         }
@@ -64,7 +71,6 @@ namespace OSIPTEL.Persistence.Layer
             }
             return response;
         }
-
 
     }
 }

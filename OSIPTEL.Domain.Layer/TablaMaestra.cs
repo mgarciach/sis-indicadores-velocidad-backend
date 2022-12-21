@@ -12,5 +12,7 @@ namespace OSIPTEL.Domain.Layer
         public string NombreTablaMaestra { get; set; }
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
+        public string Detalle { get; set; }
+        public string Detalle2 { get; set; }
     }
 }

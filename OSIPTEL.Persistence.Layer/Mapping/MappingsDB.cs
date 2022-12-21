@@ -91,7 +91,9 @@ namespace OSIPTEL.Persistence.Layer.Mapping
                     IdTablaMaestraDetalle = _oracleHelper.getInt32(reader, "ID_TABLA_MAESTRA_DETALLE"),
                     NombreTablaMaestra = _oracleHelper.getString(reader, "NOMBRE_TABLA_MAESTRA"),
                     Codigo = _oracleHelper.getInt32(reader, "CODIGO"),
-                    Descripcion = _oracleHelper.getString(reader, "DESCRIPCION")
+                    Descripcion = _oracleHelper.getString(reader, "DESCRIPCION"),
+                    Detalle = _oracleHelper.getString(reader, "DETALLE"),
+                    Detalle2 = _oracleHelper.getString(reader, "DETALLE2")
                 });
             }
             return list;
@@ -163,6 +165,24 @@ namespace OSIPTEL.Persistence.Layer.Mapping
                 Items = list,
                 Total = list.Count() == 0 ? 0 : list.First().Total
             };
+        }
+
+        public static async Task<List<Cobertura>> MapToValueListCobertura(OracleHelper _oracleHelper, DbDataReader reader)
+        {
+            List<Cobertura> list = new List<Cobertura>();
+            while (await reader.ReadAsync())
+            {
+                list.Add(new Cobertura
+                {
+                    IdCobertura = _oracleHelper.getInt32(reader, "ID_COBERTURA"),
+                    UbigeoCentroPoblado = _oracleHelper.getString(reader, "UBIGEO_CENTRO_POBLADO"),
+                    EstratoAMO = _oracleHelper.getString(reader, "ESTRATO_AMO"),
+                    EstratoTDP = _oracleHelper.getString(reader, "ESTRATO_TDP"),
+                    TotalConexionesAMO = _oracleHelper.getInt32Null(reader, "TOTAL_CONEXIONES_AMO"),
+                    TotalConexionesTDP = _oracleHelper.getInt32Null(reader, "TOTAL_CONEXIONES_TDP"),
+                });
+            }
+            return list;
         }
     }
 }

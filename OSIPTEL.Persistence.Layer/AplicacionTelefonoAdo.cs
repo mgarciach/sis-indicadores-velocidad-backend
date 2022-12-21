@@ -43,7 +43,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESSIV.PKG_ESSIV.SP_LISTAR_TELEFONOS", context))
+                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_TELEFONOS", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -79,7 +79,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESSIV.PKG_ESSIV.SP_PAGINAR_TEL_MANT", context))
+                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_PAGINAR_TEL_MANT", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -119,7 +119,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESSIV.PKG_ESSIV.SP_ACTUALIZAR_TELEFONO", context))
+                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_ACTUALIZAR_TELEFONO", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTelefonoCelular", OracleType.Number, ParameterDirection.Input, request.IdTelefonoCelular));
@@ -160,7 +160,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESSIV.PKG_ESSIV.SP_ELIMINAR_TELEFONO", context))
+                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_ELIMINAR_TELEFONO", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTelefonoCelular", OracleType.Number, ParameterDirection.Input, idTelefonoCelular));
