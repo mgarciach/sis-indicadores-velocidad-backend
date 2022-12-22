@@ -105,7 +105,10 @@ namespace OSIPTEL.Essiv.Api
             services.AddTransient<IAplicacionUsuarioAdo, AplicacionUsuarioAdo>();
 
             services.AddTransient<ICoberturaService, CoberturaService>();
-            services.AddTransient<IAplicacionCoberturaAdo, AplicacionCoberturaAdo>();
+            services.AddTransient<IAplicacionCoberturaAdo, AplicacionCoberturaAdo>(); 
+
+            services.AddTransient<IActaMedicionService, ActaMedicionService>();
+            services.AddTransient<IAplicacionActaMedicionAdo, AplicacionActaMedicionAdo>();
 
             //Services External
             //services.AddTransient<ISunatService, SunatService>();
