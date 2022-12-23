@@ -172,16 +172,18 @@ namespace OSIPTEL.Essiv.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "OSIPTEL.ESSIV.Api V1");
+                    //c.RoutePrefix = String.Empty;
+                });
             }
 
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "OSIPTEL.ESSIV.Api V1");
-                //c.RoutePrefix = String.Empty;
-            });
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -196,12 +198,7 @@ namespace OSIPTEL.Essiv.Api
             {
                 endpoints.MapControllers();
             });
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
+
         }
     }
 }

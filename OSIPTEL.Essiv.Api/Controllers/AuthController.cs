@@ -153,55 +153,6 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
-        [HttpPost("encode")]
-        public async Task<IActionResult> Encode([FromBody] TextRequest request)
-        {
-            try
-            {
-                string msg = "";
-                var encriptador = new Encriptador(_configuration);
-
-                var result = encriptador.Cifrar(request.Text, ref msg);
-
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return BadRequest(new { text = msg });
-                }
-
-                return Ok(new { text = result });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message + " - " + ex.InnerException);
-                throw ex.InnerException;
-            }
-        }
-
-
-        [HttpPost("decode")]
-        public async Task<IActionResult> Decode([FromBody] TextRequest request)
-        {
-            try
-            {
-                string msg = "";
-                var encriptador = new Encriptador(_configuration);
-
-                var result = encriptador.Decifrar(request.Text, ref msg);
-
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return BadRequest(new { text = msg });
-                }
-
-                return Ok(new { text = result });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message + " - " + ex.InnerException);
-                throw ex.InnerException;
-            }
-        }
-
         private string Token(Usuario user)
         {
             var secretKey = _configuration.GetValue<string>("SecretKey");
