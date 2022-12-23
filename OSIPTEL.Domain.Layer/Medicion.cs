@@ -8,12 +8,12 @@ namespace OSIPTEL.Domain.Layer
 {
     public class Medicion
     {
-		public int IdActaMedicion { get; set; }
+		public int IdMedicion { get; set; }
 		public int IdActa { get; set; }
 		public string? Latitud { get; set; }
 		public string? Longitud { get; set; }
 		public DateTime FechaMedicion { get; set; }
-		public string HoraInicio { get; set; }
+		public string HoraMedicion { get; set; }
 		public string? NumeroMovil { get; set; }
 		public int? IdTelefono { get; set; }
 		public int? IdTblTipoServidor { get; set; }
@@ -40,18 +40,19 @@ namespace OSIPTEL.Domain.Layer
 		public DateTime? FechaAltaPlan { get; set; }
 		public decimal? VelocidadBajadaPlan { get; set; }
 		public decimal? VelocidadSubidaPlan { get; set; }
-		public decimal? PorcentajeGarantPlanBajada { get; set; }
-		public decimal? PorcentajeGarantPlanSubida { get; set; }
+		public decimal? PorcentajeGarantizadoPlanBajada { get; set; }
+		public decimal? PorcentajeGarantizadoPlanSubida { get; set; }
 		public string? NombrePromocion { get; set; }
 		public decimal? VelocidadBajadaPromocion { get; set; }
 		public decimal? VelocidadSubidaPromocion { get; set; }
-		public decimal? PorcentajeGaranPromocion { get; set; }
+		public decimal? PorcentajeGarantizadoPromocion { get; set; }
 		public DateTime? InicioPromocion { get; set; }
 		public DateTime? FinPromocion { get; set; }
 		public string? NumeroTelefonoServicio { get; set; }
 		public string? NombreTitular { get; set; }
 		public string? DireccionInstalacion { get; set; }
 		public string GuidActa { get; set; }
+		public string Guid { get; set; }
 		public bool EsEliminado { get; set; }
 		public string? Usuario { get; set; }
 		public DateTime? FechaCreacion { get; set; }

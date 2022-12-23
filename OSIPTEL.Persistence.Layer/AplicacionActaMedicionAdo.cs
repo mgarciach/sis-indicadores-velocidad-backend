@@ -14,7 +14,8 @@ namespace OSIPTEL.Persistence.Layer
     public interface IAplicacionActaMedicionAdo
     {
         Task<int?> InsertarActa(Acta request);
-        Task InsertarMediciones(int idActa, List<Medicion> requests);
+        Task InsertarMediciones(int idActa, List<Medicion> requests, string usuario);
+        Task<List<ActaIds>> GetAllActasIdsPorUsuario(string usuario);
     }
 
     public class AplicacionActaMedicionAdo : IAplicacionActaMedicionAdo
@@ -70,8 +71,8 @@ namespace OSIPTEL.Persistence.Layer
                         cmd.Parameters.Add(_oracleHelper.getParam("sTipoCP", OracleType.VarChar, ParameterDirection.Input, request.TipoCP));
                         cmd.Parameters.Add(_oracleHelper.getParam("sLatitudCentro", OracleType.VarChar, ParameterDirection.Input, request.LatitudCentro));
                         cmd.Parameters.Add(_oracleHelper.getParam("sLongitudCentro", OracleType.VarChar, ParameterDirection.Input, request.LongitudCentro));
-                        cmd.Parameters.Add(_oracleHelper.getParam("sTieneAnexo2", OracleType.Number, ParameterDirection.Input, request.TieneAnexo2 ? 1 : 0));
-                        cmd.Parameters.Add(_oracleHelper.getParam("sTieneAnexo3", OracleType.Number, ParameterDirection.Input, request.TieneAnexo3 ? 1 : 0));
+                        cmd.Parameters.Add(_oracleHelper.getParam("sTieneAnexo2", OracleType.Number, ParameterDirection.Input, request.TieneAnexo2));
+                        cmd.Parameters.Add(_oracleHelper.getParam("sTieneAnexo3", OracleType.Number, ParameterDirection.Input, request.TieneAnexo3));
                         cmd.Parameters.Add(_oracleHelper.getParam("sDescripcionAnexo2", OracleType.VarChar, ParameterDirection.Input, request.DescripcionAnexo2));
                         cmd.Parameters.Add(_oracleHelper.getParam("sDescripcionAnexo3", OracleType.VarChar, ParameterDirection.Input, request.DescripcionAnexo3));
                         cmd.Parameters.Add(_oracleHelper.getParam("sEstrato", OracleType.VarChar, ParameterDirection.Input, request.Estrato));
@@ -80,11 +81,13 @@ namespace OSIPTEL.Persistence.Layer
                         cmd.Parameters.Add(_oracleHelper.getParam("sApellidosSupervisor", OracleType.VarChar, ParameterDirection.Input, request.ApellidosSupervisor));
                         cmd.Parameters.Add(_oracleHelper.getParam("sGuid", OracleType.VarChar, ParameterDirection.Input, request.Guid));
                         cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, request.Usuario));
-                        cmd.Parameters.Add(_oracleHelper.getParam("sFechaCreacion", OracleType.DateTime, ParameterDirection.Input, request.FechaCreacion));
+                        cmd.Parameters.Add(_oracleHelper.getParam("sFechaCreacion", OracleType.DateTime, ParameterDirection.Input, DateTime.Now));
                         cmd.Parameters.Add(_oracleHelper.getParam("oIdActa", OracleType.Number, ParameterDirection.Output, idActa));
+
 
                         await context.OpenAsync();
                         await cmd.ExecuteNonQueryAsync();
+                        idActa = Convert.ToInt32(cmd.Parameters["oIdActa"].Value);
                     }
                 }
             }
@@ -100,7 +103,7 @@ namespace OSIPTEL.Persistence.Layer
             return idActa;
         }
 
-        public async Task InsertarMediciones(int idActa, List<Medicion> requests)
+        public async Task InsertarMediciones(int idActa, List<Medicion> requests, string usuario)
         {
             OracleConnection context = null;
 
@@ -109,16 +112,17 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_INSERTAR_MEDICION", context))
+                    foreach (var request in requests)
                     {
-                        foreach(var request in requests) {
+                        using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_INSERTAR_MEDICION", context))
+                        {
                             cmd.CommandType = CommandType.StoredProcedure;
 
                             cmd.Parameters.Add(_oracleHelper.getParam("sIdActa", OracleType.Number, ParameterDirection.Input, idActa));
                             cmd.Parameters.Add(_oracleHelper.getParam("sLatitud", OracleType.VarChar, ParameterDirection.Input, request.Latitud));
                             cmd.Parameters.Add(_oracleHelper.getParam("sLongitud", OracleType.VarChar, ParameterDirection.Input, request.Longitud));
                             cmd.Parameters.Add(_oracleHelper.getParam("sFechaMedicion", OracleType.DateTime, ParameterDirection.Input, request.FechaMedicion));
-                            cmd.Parameters.Add(_oracleHelper.getParam("sHoraInicio", OracleType.VarChar, ParameterDirection.Input, request.HoraInicio));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sHoraMedicion", OracleType.VarChar, ParameterDirection.Input, request.HoraMedicion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sNumeroMovil", OracleType.VarChar, ParameterDirection.Input, request.NumeroMovil));
                             cmd.Parameters.Add(_oracleHelper.getParam("sIdTelefono", OracleType.Number, ParameterDirection.Input, request.IdTelefono));
                             cmd.Parameters.Add(_oracleHelper.getParam("sIdTblTipoServidor", OracleType.Number, ParameterDirection.Input, request.IdTblTipoServidor));
@@ -145,20 +149,21 @@ namespace OSIPTEL.Persistence.Layer
                             cmd.Parameters.Add(_oracleHelper.getParam("sFechaAltaPlan", OracleType.DateTime, ParameterDirection.Input, request.FechaAltaPlan));
                             cmd.Parameters.Add(_oracleHelper.getParam("sVelocidadBajadaPlan", OracleType.Number, ParameterDirection.Input, request.VelocidadBajadaPlan));
                             cmd.Parameters.Add(_oracleHelper.getParam("sVelocidadSubidaPlan", OracleType.Number, ParameterDirection.Input, request.VelocidadSubidaPlan));
-                            cmd.Parameters.Add(_oracleHelper.getParam("sPorcentajeGarantPlanBajada", OracleType.Number, ParameterDirection.Input, request.PorcentajeGarantPlanBajada));
-                            cmd.Parameters.Add(_oracleHelper.getParam("sPorcentajeGarantPlanSubida", OracleType.Number, ParameterDirection.Input, request.PorcentajeGarantPlanSubida));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sPorcentajeGarantPlanBajada", OracleType.Number, ParameterDirection.Input, request.PorcentajeGarantizadoPlanBajada));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sPorcentajeGarantPlanSubida", OracleType.Number, ParameterDirection.Input, request.PorcentajeGarantizadoPlanSubida));
                             cmd.Parameters.Add(_oracleHelper.getParam("sNombrePromocion", OracleType.VarChar, ParameterDirection.Input, request.NombrePromocion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sVelocidadBajadaPromocion", OracleType.Number, ParameterDirection.Input, request.VelocidadBajadaPromocion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sVelocidadSubidaPromocion", OracleType.Number, ParameterDirection.Input, request.VelocidadSubidaPromocion));
-                            cmd.Parameters.Add(_oracleHelper.getParam("sPorcentajeGaranPromocion", OracleType.Number, ParameterDirection.Input, request.PorcentajeGaranPromocion));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sPorcentajeGaranPromocion", OracleType.Number, ParameterDirection.Input, request.PorcentajeGarantizadoPromocion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sInicioPromocion", OracleType.DateTime, ParameterDirection.Input, request.InicioPromocion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sFinPromocion", OracleType.DateTime, ParameterDirection.Input, request.FinPromocion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sNumeroTelefonoServicio", OracleType.VarChar, ParameterDirection.Input, request.NumeroTelefonoServicio));
                             cmd.Parameters.Add(_oracleHelper.getParam("sNombreTitular", OracleType.VarChar, ParameterDirection.Input, request.NombreTitular));
                             cmd.Parameters.Add(_oracleHelper.getParam("sDireccionInstalacion", OracleType.VarChar, ParameterDirection.Input, request.DireccionInstalacion));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sGuid", OracleType.VarChar, ParameterDirection.Input, request.Guid));
                             cmd.Parameters.Add(_oracleHelper.getParam("sGuidActa", OracleType.VarChar, ParameterDirection.Input, request.GuidActa));
-                            cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, request.Usuario));
-                            cmd.Parameters.Add(_oracleHelper.getParam("sFechaCreacion", OracleType.DateTime, ParameterDirection.Input, request.FechaCreacion));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, usuario));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sFechaCreacion", OracleType.DateTime, ParameterDirection.Input, DateTime.Now));
 
                             await context.OpenAsync();
                             await cmd.ExecuteNonQueryAsync();
@@ -175,6 +180,79 @@ namespace OSIPTEL.Persistence.Layer
             {
                 context.Close();
             }
+        }
+
+        public async Task<List<ActaIds>> GetAllActasIdsPorUsuario(string usuario)
+        {
+            OracleConnection context = null;
+            List<ActaIds> response = new List<ActaIds>();
+            try
+            {
+                Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
+                using (context = new OracleConnection(_dbConnection.ConnectionString))
+                {
+
+                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_IDS_GUID_ACTAS", context))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, usuario));
+                        cmd.Parameters.Add(_oracleHelper.getParam("oCursor", OracleType.Cursor));
+
+                        await context.OpenAsync();
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                response.Add(new ActaIds
+                                {
+                                    IdActa = _oracleHelper.getInt32(reader, "ID_ACTA"),
+                                    Guid = _oracleHelper.getString(reader, "GUID"),
+                                });
+
+                            }
+                            reader.Close();
+                        }
+                    }
+
+                    foreach (var acta in response)
+                    {
+                        var mediciones = new List<MedicionIds>();
+
+                        using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_IDS_GUID_MEDICIONES", context))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add(_oracleHelper.getParam("sIdActa", OracleType.VarChar, ParameterDirection.Input, acta.IdActa));
+                            cmd.Parameters.Add(_oracleHelper.getParam("oCursor", OracleType.Cursor));
+
+                            await context.OpenAsync();
+                            using (var reader = await cmd.ExecuteReaderAsync())
+                            {
+                                while (await reader.ReadAsync())
+                                {
+                                    mediciones.Add(new MedicionIds
+                                    {
+                                        IdMedicion = _oracleHelper.getInt32(reader, "ID_MEDICION"),
+                                        Guid = _oracleHelper.getString(reader, "GUID"),
+                                    });
+
+                                }
+                                reader.Close();
+                            }
+                        }
+
+                        acta.Mediciones = mediciones;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+            finally
+            {
+                context.Close();
+            }
+            return response;
         }
 
     }

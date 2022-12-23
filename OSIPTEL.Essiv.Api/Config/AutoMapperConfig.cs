@@ -33,7 +33,9 @@ namespace OSIPTEL.Essiv.Api.Config
                 cfg.CreateMap<Perfil, PerfilDto>().ReverseMap();
                 cfg.CreateMap<Cobertura, CoberturaDto>().ReverseMap();
                 cfg.CreateMap<Acta, ActaDto>().ReverseMap();
-                cfg.CreateMap<Medicion, MedicionDto>().ReverseMap();
+                cfg.CreateMap<Medicion, MedicionDto>().ReverseMap(); 
+                cfg.CreateMap<ActaIds, ActaIdsDto>().ReverseMap();
+                cfg.CreateMap<MedicionIds, MedicionIdsDto>().ReverseMap();
             });
         }
     }

@@ -79,7 +79,7 @@ namespace OSIPTEL.Essiv.Api
             //    //options.SetCompatibilityVersion(CompatibilityVersion.)
             //    options.EnableEndpointRouting = false;
             //});//.SetCompatibilityVersion(CompatibilityVersion.Ver);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<OracleHelper>();
 
             //Services

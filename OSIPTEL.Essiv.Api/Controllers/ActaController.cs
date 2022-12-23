@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OSIPTEL.DomainDto.Layer;
 using OSIPTEL.Service.Layer;
 
 namespace OSIPTEL.Essiv.Api.Controllers
 {
+
+    public class ReqActas
+    {
+        public List<ActaDto> Actas { get; set; }
+
+    }
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class ActaController : ControllerBase
     {
 
@@ -25,11 +34,15 @@ namespace OSIPTEL.Essiv.Api.Controllers
         [HttpPost("")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> InsertarTablaMaestraDetalle([FromBody] ActaDto request)
+        public async Task<IActionResult> InsertarActa([FromBody] ReqActas requestActas)
         {
             try
             {
-                await _actaMedicionService.InsertarActaMedicion(request);
+                foreach (var request in requestActas.Actas)
+                {
+                    await _actaMedicionService.InsertarActaMedicion(request);
+                }
+
                 return Ok();
             }
             catch (Exception ex)
@@ -38,5 +51,33 @@ namespace OSIPTEL.Essiv.Api.Controllers
                 throw ex.InnerException;
             }
         }
+
+
+        [HttpGet("")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> GetAllActasIdsPorUsuario([FromQuery] string usuario)
+        {
+            try
+            {
+                var list = await _actaMedicionService.GetAllActasIdsPorUsuario(usuario);
+                if (list == null)
+                {
+                    return BadRequest("Acceso denegado");
+                }
+                else
+                {
+                    return Ok(list);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message + " - " + ex.InnerException);
+                throw ex.InnerException;
+            }
+        }
+
     }
+
 }

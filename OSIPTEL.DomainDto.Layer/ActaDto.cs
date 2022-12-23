@@ -32,8 +32,8 @@ namespace OSIPTEL.DomainDto.Layer
 		public string? TipoCP { get; set; }
 		public string? LatitudCentro { get; set; }
 		public string? LongitudCentro { get; set; }
-		public bool TieneAnexo2 { get; set; }
-		public bool TieneAnexo3 { get; set; }
+		public int TieneAnexo2 { get; set; }
+		public int TieneAnexo3 { get; set; }
 		public string? DescripcionAnexo2 { get; set; }
 		public string? DescripcionAnexo3 { get; set; }
 		public string? Estrato { get; set; }
@@ -41,9 +41,22 @@ namespace OSIPTEL.DomainDto.Layer
 		public string? NombresSupervisor { get; set; }
 		public string? ApellidosSupervisor { get; set; }
 		public bool ES_ELIMINADO { get; set; }
-		public string? Usuario { get; set; }
+		public string Usuario { get; set; }
 		public DateTime? FechaCreacion { get; set; }
 		public string? Guid { get; set; }
 		public List<MedicionDto> Mediciones { get; set; }
+	}
+
+	public class ActaIdsDto
+	{
+		public int IdActa { get; set; }
+		public string? Guid { get; set; }
+		public List<MedicionIdsDto> Mediciones { get; set; }
+	}
+
+	public class MedicionIdsDto
+	{
+		public int IdMedicion { get; set; }
+		public string? Guid { get; set; }
 	}
 }

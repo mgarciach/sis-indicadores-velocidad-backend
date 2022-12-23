@@ -36,8 +36,10 @@ namespace OSIPTEL.Common.Layer
             }
             else
             {
-                if (pTipo == OracleType.Number) prm.Value = 0;
-                if (pTipo == OracleType.VarChar) prm.Value = "";
+                //if (pTipo == OracleType.Number) prm.Value = 0;
+                //if (pTipo == OracleType.VarChar) prm.Value = "";
+                if (pTipo == OracleType.Number) prm.Value = null;
+                if (pTipo == OracleType.VarChar) prm.Value = null;
                 if (pTipo == OracleType.DateTime) prm.Value = null;
 
             }

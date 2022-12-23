@@ -66,7 +66,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
 
             if (Convert.ToBoolean(_configuration["Dev"]))
             {
-                return Ok(FakeLogin(model));
+                return Ok(TestLogin(model));
             }
 
             try
@@ -220,8 +220,8 @@ namespace OSIPTEL.Essiv.Api.Controllers
             var createdToken = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(createdToken);
         }
-
-        private object FakeLogin(UsuarioValidDto model)
+        #region HERLPERS
+        private object TestLogin(UsuarioValidDto model)
         {
             UsuarioDto datUser = null;
             List<PerfilDto> datPerfil = null;
@@ -265,7 +265,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                 datPerfil = new List<PerfilDto>()
                 {
                     new PerfilDto() {
-                        Aplicacion = "ESSIV",
+                        Aplicacion = "SIGAII",
                         Descripcion = "Administrador",
                         Estado = "Activo",
                         IdPerfil = 1,
@@ -290,6 +290,8 @@ namespace OSIPTEL.Essiv.Api.Controllers
                 user_error = datUser == null ? "Acceso Denegado" : "Acceso OK."
             };
         }
+
+        #endregion
 
     }
 

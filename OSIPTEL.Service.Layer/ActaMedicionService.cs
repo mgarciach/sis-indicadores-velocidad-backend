@@ -14,7 +14,8 @@ namespace OSIPTEL.Service.Layer
     public interface IActaMedicionService
     {
         Task InsertarActaMedicion(ActaDto request);
-   
+        Task<List<ActaIdsDto>> GetAllActasIdsPorUsuario(string usuario);
+
     }
     public class ActaMedicionService : IActaMedicionService
     {
@@ -40,7 +41,7 @@ namespace OSIPTEL.Service.Layer
 
                 if (idActa != null)
                 {
-                    await _aplicacionActaMedicionAdo.InsertarMediciones(idActa.Value, entry.Mediciones);
+                    await _aplicacionActaMedicionAdo.InsertarMediciones(idActa.Value, entry.Mediciones, request.Usuario);
                 }
 
             }
@@ -49,6 +50,22 @@ namespace OSIPTEL.Service.Layer
                 _logger.LogError(ex.Message);
             }
 
+        }
+
+        public async Task<List<ActaIdsDto>> GetAllActasIdsPorUsuario(string usuario) {
+            var result = new List<ActaIdsDto>();
+            try
+            {
+                result = Mapper.Map<List<ActaIdsDto>>(
+                    await _aplicacionActaMedicionAdo.GetAllActasIdsPorUsuario(usuario)
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+
+            return result;
         }
     }
 }
