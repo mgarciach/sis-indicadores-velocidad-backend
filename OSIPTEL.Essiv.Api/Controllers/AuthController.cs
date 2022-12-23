@@ -213,7 +213,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                     new Claim(ClaimTypes.NameIdentifier, user.UserName),
                     new Claim(ClaimTypes.Name, user.Nombre)
                 }),
-                Expires = DateTime.UtcNow.AddDays(15),
+                Expires = DateTime.UtcNow.AddDays(365),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var tokenHandler = new JwtSecurityTokenHandler();

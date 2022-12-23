@@ -61,9 +61,8 @@ namespace OSIPTEL.Essiv.Api
             var cnStr = this.Configuration.GetConnectionString("SeguridadConnection");
 
             if (encrypt) {
-                var msgEncrypt = "";
-                var encriptador = new Encriptador(Configuration);
-                cnStr = encriptador.Decifrar(cnStr, ref msgEncrypt);
+                var keysCifrado = Configuration.GetSection("KeysCifrado").Get<KeysCifrado>();
+                cnStr = DecryptHelper.DecryptString(cnStr, keysCifrado);
             }
 
             services.AddTransient<IDbConnection>((sp) => new OracleConnection(cnStr));
