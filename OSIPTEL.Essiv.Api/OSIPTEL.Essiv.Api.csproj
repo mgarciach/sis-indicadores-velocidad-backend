@@ -7,6 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Files\Plantillas\acta_700.docx" />
+    <None Remove="Files\Plantillas\acta_aws.docx" />
+    <None Remove="Files\Plantillas\acta_cvm_movil.docx" />
+    <None Remove="Files\Plantillas\acta_cvm_movil_preventiva.docx" />
+    <None Remove="Files\Plantillas\acta_fijo.docx" />
+    <None Remove="Files\Plantillas\acta_fijo_preventiva.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\Plantillas\acta_700.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Plantillas\acta_aws.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Plantillas\acta_cvm_movil.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Plantillas\acta_cvm_movil_preventiva.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Plantillas\acta_fijo.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Plantillas\acta_fijo_preventiva.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.12" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
