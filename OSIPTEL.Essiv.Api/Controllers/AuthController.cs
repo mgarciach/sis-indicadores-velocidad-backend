@@ -177,7 +177,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
             UsuarioDto datUser = null;
             List<PerfilDto> datPerfil = null;
 
-            if (model.UserName == "aperez")
+            if (model.UserName == "aperez" && model.Password == "123456")
             {
                 datUser = new UsuarioDto()
                 {
@@ -201,7 +201,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                 };
             }
 
-            if (model.UserName == "myauricasa")
+            if (model.UserName == "myauricasa" && model.Password == "123456")
             {
                 datUser = new UsuarioDto()
                 {

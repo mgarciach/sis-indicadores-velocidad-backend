@@ -131,7 +131,7 @@ namespace OSIPTEL.Service.Layer
 
                     ResultPropertyCollection colProperties = resultados.Properties;
 
-                    String ls = String.Empty;
+                    var ls = String.Empty;
                     foreach (string key in colProperties.PropertyNames)
                     {
                         foreach (object value in colProperties[key])

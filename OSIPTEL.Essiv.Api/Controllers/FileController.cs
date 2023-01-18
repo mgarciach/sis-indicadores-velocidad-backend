@@ -11,15 +11,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-        private readonly ILogger _logger;
         private static string PlantillasPath = Path.Combine(Environment.CurrentDirectory, "Files/Plantillas");
-        private static string CachePath = Path.Combine(Environment.CurrentDirectory, "Files/Cache");
         private static string ZipPath = Path.Combine(Environment.CurrentDirectory, "Files/Zip");
         public FileController(
-           ILogger<TelefonoController> logger
         )
         {
-            _logger = logger;
         }
 
         [HttpPost]
