@@ -23,6 +23,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Obtiene todo el listado de tabla maestra detalle. Sirve para llenar combos en la aplicación.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -48,6 +52,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene el listado de la tabla maestra. Se usa en la opción de mantenimiento
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("mantenimiento")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -73,6 +81,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene el listado de detalle de cada tabla maestra.
+        /// </summary>
+        /// <param name="idTablaMaestra"></param>
+        /// <returns></returns>
         [HttpGet("mantenimiento/{id}/detalle")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -98,6 +111,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Inserta un nuevo detalle en la tabla "TABLA_MAESTRA_DETALLE"
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("mantenimiento/{id}/detalle")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -116,6 +134,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Actualiza un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("mantenimiento/{id}/detalle/{idTablaMaestraDetalle}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -134,6 +157,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Elimina un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="idTablaMaestraDetalle"></param>
+        /// <returns></returns>
         [HttpDelete("mantenimiento/{id}/detalle/{idTablaMaestraDetalle}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

@@ -12,6 +12,10 @@ namespace OSIPTEL.Service.Layer
 {
     public interface ICoberturaService
     {
+        /// <summary>
+        /// Obtiene todo el listado de latabla COBERTURA
+        /// </summary>
+        /// <returns></returns>
         Task<List<CoberturaDto>> GetAllCobertura();
     }
     public class CoberturaService : ICoberturaService
@@ -27,6 +31,11 @@ namespace OSIPTEL.Service.Layer
             _aplicacionCoberturaAdo = aplicacionCoberturaAdo;
             _logger = logger;
         }
+
+        /// <summary>
+        /// Obtiene todo el listado de latabla COBERTURA
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<CoberturaDto>> GetAllCobertura()
         {
             var result = new List<CoberturaDto>();

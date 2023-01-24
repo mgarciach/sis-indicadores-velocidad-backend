@@ -15,6 +15,10 @@ namespace OSIPTEL.Persistence.Layer
 
     public interface IAplicacionCoberturaAdo
     {
+        /// <summary>
+        /// Obtiene todo el listado de latabla COBERTURA
+        /// </summary>
+        /// <returns></returns>
         Task<List<Cobertura>> GetAllCobertura();
     }
 
@@ -26,7 +30,7 @@ namespace OSIPTEL.Persistence.Layer
 
         public AplicacionCoberturaAdo(
            IDbConnection dbConnection,
-           ILogger<AplicacionPoligonoAdo> logger,
+           ILogger<AplicacionCoberturaAdo> logger,
            OracleHelper oracleHelper
            )
         {
@@ -35,6 +39,10 @@ namespace OSIPTEL.Persistence.Layer
             _oracleHelper = oracleHelper;
         }
 
+        /// <summary>
+        /// Obtiene todo el listado de latabla COBERTURA
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Cobertura>> GetAllCobertura()
         {
             OracleConnection context = null;

@@ -9,12 +9,31 @@ namespace OSIPTEL.Persistence.Layer
 {
     public interface IAplicacionTelefonoAdo
     {
+        /// <summary>
+        /// Obtiene la lista de telefonos
+        /// </summary>
+        /// <returns></returns>
         Task<List<Telefono>> GetAllTelefono();
 
+        /// <summary>
+        /// Obtiene la lista de telefonos validos de manera paginada
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<PaginateResponse<Telefono>> PaginarTelefono(PageTelefonoRequest request);
 
+        /// <summary>
+        /// Actualiza un registro de telefono
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task ActualizarTelefono(TelefonoRequest request);
 
+        /// <summary>
+        /// Elimina un registro de telefono
+        /// </summary>
+        /// <param name="idTelefonoCelular"></param>
+        /// <returns></returns>
         Task EliminarTelefono(int idTelefonoCelular);
     }
     public class AplicacionTelefonoAdo : IAplicacionTelefonoAdo
@@ -34,6 +53,10 @@ namespace OSIPTEL.Persistence.Layer
             _oracleHelper = oracleHelper;
         }
 
+        /// <summary>
+        /// Obtiene la lista de telefonos
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Telefono>> GetAllTelefono()
         {
             OracleConnection context = null;
@@ -70,6 +93,11 @@ namespace OSIPTEL.Persistence.Layer
             return response;
         }
 
+        /// <summary>
+        /// Obtiene la lista de telefonos validos de manera paginada
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<PaginateResponse<Telefono>> PaginarTelefono(PageTelefonoRequest request)
         {
             OracleConnection context = null;
@@ -110,6 +138,11 @@ namespace OSIPTEL.Persistence.Layer
             return response;
         }
 
+        /// <summary>
+        /// Actualiza un registro de telefono
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task ActualizarTelefono(TelefonoRequest request)
         {
             OracleConnection context = null;
@@ -151,6 +184,11 @@ namespace OSIPTEL.Persistence.Layer
             }
         }
 
+        /// <summary>
+        /// Elimina un registro de telefono
+        /// </summary>
+        /// <param name="idTelefonoCelular"></param>
+        /// <returns></returns>
         public async Task EliminarTelefono(int idTelefonoCelular)
         {
             OracleConnection context = null;

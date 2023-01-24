@@ -9,11 +9,31 @@ namespace OSIPTEL.Service.Layer
 {
     public interface ITelefonoService
     {
+        /// <summary>
+        /// Obtiene la lista de todos los teléfonos
+        /// </summary>
+        /// <returns></returns>
         Task<List<TelefonoDto>> GetAllTelefono();
+
+        /// <summary>
+        /// Obtiene una lista de telefonos de forma paginada
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<PaginateResponse<TelefonoDto>> PaginarTelefono(PageTelefonoRequestDto request);
 
+        /// <summary>
+        /// Actualiza un registro de telefono
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task ActualizarTelefono(TelefonoRequestDto request);
 
+        /// <summary>
+        /// Elimina un registro de telefono
+        /// </summary>
+        /// <param name="idTelefonoCelular"></param>
+        /// <returns></returns>
         Task EliminarTelefono(int idTelefonoCelular);
     }
     public class TelefonoService : ITelefonoService
@@ -29,11 +49,15 @@ namespace OSIPTEL.Service.Layer
             _aplicacionTelefonoAdo = aplicacionTelefonoAdo;
             _logger = logger;
         }
+
+        /// <summary>
+        /// Obtiene la lista de todos los teléfonos
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TelefonoDto>> GetAllTelefono() {
             var result = new List<TelefonoDto>();
             try
             {
-                //var entry = Mapper.Map<CentroPobladoDto>();
                 result = Mapper.Map<List<TelefonoDto>>(
                     await _aplicacionTelefonoAdo.GetAllTelefono()
                 );
@@ -46,6 +70,11 @@ namespace OSIPTEL.Service.Layer
             return result;
         }
 
+        /// <summary>
+        /// Obtiene una lista de telefonos de forma paginada
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<PaginateResponse<TelefonoDto>> PaginarTelefono(PageTelefonoRequestDto request) {
             var result = new PaginateResponse<TelefonoDto>();
             try
@@ -63,6 +92,11 @@ namespace OSIPTEL.Service.Layer
             return result;
         }
 
+        /// <summary>
+        /// Actualiza un registro de telefono
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task ActualizarTelefono(TelefonoRequestDto request)
         {
             try
@@ -76,6 +110,11 @@ namespace OSIPTEL.Service.Layer
             }
         }
 
+        /// <summary>
+        /// Elimina un registro de telefono
+        /// </summary>
+        /// <param name="idTelefonoCelular"></param>
+        /// <returns></returns>
         public async Task EliminarTelefono(int idTelefonoCelular)
         {
             try

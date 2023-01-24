@@ -8,11 +8,44 @@ namespace OSIPTEL.Service.Layer
 {
     public interface ITablaMaestraService
     {
+        /// <summary>
+        /// Obtiene todo el listado de tabla maestra detalle. Sirve para llenar combos en la aplicación.
+        /// </summary>
+        /// <returns></returns>
         Task<List<TablaMaestraDto>> GetAllTablaMaestra();
+
+        /// <summary>
+        /// Obtiene el listado de la tabla maestra. Se usa en la opción de mantenimiento
+        /// </summary>
+        /// <returns></returns>
         Task<List<TablaMaestraMantDto>> GetTablaMaestraMantenimiento();
+
+        /// <summary>
+        /// Obtiene el listado de detalle de cada tabla maestra.
+        /// </summary>
+        /// <param name="idTablaMaestra"></param>
+        /// <returns></returns>
         Task<List<TablaMaestraDetalleMantDto>> GetTablaMaestraDetalleMantenimiento(int idTablaMaestra);
+
+        /// <summary>
+        /// Inserta un nuevo detalle en la tabla "TABLA_MAESTRA_DETALLE"
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task InsertarTablaMaestraDetalle(TablaMaestraDetalleMantRequestDto request);
+
+        /// <summary>
+        /// Actualiza un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task ActualizarTablaMaestraDetalle(TablaMaestraDetalleMantRequestDto request);
+
+        /// <summary>
+        /// Elimina un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="idTablaMaestraDetalle"></param>
+        /// <returns></returns>
         Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle);
     }
     public class TablaMaestraService : ITablaMaestraService
@@ -29,6 +62,10 @@ namespace OSIPTEL.Service.Layer
             _logger = logger;
         }
 
+        /// <summary>
+        /// Obtiene todo el listado de tabla maestra detalle. Sirve para llenar combos en la aplicación.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TablaMaestraDto>> GetAllTablaMaestra()
         {
             var result = new List<TablaMaestraDto>();
@@ -47,6 +84,11 @@ namespace OSIPTEL.Service.Layer
             return result;
         }
 
+
+        /// <summary>
+        /// Obtiene el listado de la tabla maestra. Se usa en la opción de mantenimiento
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TablaMaestraMantDto>> GetTablaMaestraMantenimiento()
         {
             var result = new List<TablaMaestraMantDto>();
@@ -64,6 +106,12 @@ namespace OSIPTEL.Service.Layer
 
             return result;
         }
+
+        /// <summary>
+        /// Obtiene el listado de detalle de cada tabla maestra.
+        /// </summary>
+        /// <param name="idTablaMaestra"></param>
+        /// <returns></returns>
         public async Task<List<TablaMaestraDetalleMantDto>> GetTablaMaestraDetalleMantenimiento(int idTablaMaestra)
         {
             var result = new List<TablaMaestraDetalleMantDto>();
@@ -82,6 +130,11 @@ namespace OSIPTEL.Service.Layer
             return result;
         }
 
+        /// <summary>
+        /// Inserta un nuevo detalle en la tabla "TABLA_MAESTRA_DETALLE"
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task InsertarTablaMaestraDetalle(TablaMaestraDetalleMantRequestDto request)
         {
             try
@@ -96,6 +149,11 @@ namespace OSIPTEL.Service.Layer
 
         }
 
+        /// <summary>
+        /// Actualiza un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task ActualizarTablaMaestraDetalle(TablaMaestraDetalleMantRequestDto request)
         {
             try
@@ -109,6 +167,11 @@ namespace OSIPTEL.Service.Layer
             }
         }
 
+        /// <summary>
+        /// Elimina un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="idTablaMaestraDetalle"></param>
+        /// <returns></returns>
         public async Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle)
         {
             try

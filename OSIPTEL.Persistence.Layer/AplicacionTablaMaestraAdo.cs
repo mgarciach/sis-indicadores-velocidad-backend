@@ -9,11 +9,44 @@ namespace OSIPTEL.Persistence.Layer
 {
     public interface IAplicacionTablaMaestraAdo
     {
+        /// <summary>
+        /// Obtiene todo el listado de tabla maestra detalle. Sirve para llenar combos en la aplicación.
+        /// </summary>
+        /// <returns></returns>
         Task<List<TablaMaestra>> GetAllTablaMaestra();
+
+        /// <summary>
+        /// Obtiene el listado de la tabla maestra. Se usa en la opción de mantenimiento
+        /// </summary>
+        /// <returns></returns>
         Task<List<TablaMaestraMant>> GetTablaMaestraMantenimiento();
+
+        /// <summary>
+        /// Obtiene el listado de detalle de cada tabla maestra.
+        /// </summary>
+        /// <param name="idTablaMaestra"></param>
+        /// <returns></returns>
         Task<List<TablaMaestraDetalleMant>> GetTablaMaestraDetalleMantenimiento(int idTablaMaestra);
+
+        /// <summary>
+        /// Inserta un nuevo detalle en la tabla "TABLA_MAESTRA_DETALLE"
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task InsertarTablaMaestraDetalle(TablaMaestraDetalleMantRequest request);
+
+        /// <summary>
+        /// Actualiza un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task ActualizarTablaMaestraDetalle(TablaMaestraDetalleMantRequest request);
+
+        /// <summary>
+        /// Elimina un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="idTablaMaestraDetalle"></param>
+        /// <returns></returns>
         Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle);
     }
     public class AplicacionTablaMaestraAdo : IAplicacionTablaMaestraAdo
@@ -33,6 +66,10 @@ namespace OSIPTEL.Persistence.Layer
             _oracleHelper = oracleHelper;
         }
 
+        /// <summary>
+        /// Obtiene todo el listado de tabla maestra detalle. Sirve para llenar combos en la aplicación.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TablaMaestra>> GetAllTablaMaestra()
         {
             OracleConnection context = null;
@@ -70,6 +107,10 @@ namespace OSIPTEL.Persistence.Layer
             return response;
         }
 
+        /// <summary>
+        /// Obtiene el listado de la tabla maestra. Se usa en la opción de mantenimiento
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TablaMaestraMant>> GetTablaMaestraMantenimiento()
         {
             OracleConnection context = null;
@@ -106,6 +147,12 @@ namespace OSIPTEL.Persistence.Layer
             }
             return response;
         }
+
+        /// <summary>
+        /// Obtiene el listado de detalle de cada tabla maestra.
+        /// </summary>
+        /// <param name="idTablaMaestra"></param>
+        /// <returns></returns>
         public async Task<List<TablaMaestraDetalleMant>> GetTablaMaestraDetalleMantenimiento(int idTablaMaestra)
         {
             OracleConnection context = null;
@@ -143,6 +190,11 @@ namespace OSIPTEL.Persistence.Layer
             return response;
         }
 
+        /// <summary>
+        /// Inserta un nuevo detalle en la tabla "TABLA_MAESTRA_DETALLE"
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task InsertarTablaMaestraDetalle(TablaMaestraDetalleMantRequest request)
         {
             OracleConnection context = null;
@@ -176,6 +228,12 @@ namespace OSIPTEL.Persistence.Layer
                 context.Close();
             }
         }
+
+        /// <summary>
+        /// Actualiza un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task ActualizarTablaMaestraDetalle(TablaMaestraDetalleMantRequest request)
         {
             OracleConnection context = null;
@@ -210,6 +268,11 @@ namespace OSIPTEL.Persistence.Layer
             }
         }
 
+        /// <summary>
+        /// Elimina un registro de la tabla TABLA_MAESTRA_DETALLE
+        /// </summary>
+        /// <param name="idTablaMaestraDetalle"></param>
+        /// <returns></returns>
         public async Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle)
         {
             OracleConnection context = null;

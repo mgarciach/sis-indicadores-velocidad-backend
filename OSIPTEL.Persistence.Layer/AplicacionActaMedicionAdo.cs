@@ -13,8 +13,25 @@ namespace OSIPTEL.Persistence.Layer
 {
     public interface IAplicacionActaMedicionAdo
     {
+        /// <summary>
+        /// Inserta un registro de la tabla ACTA
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<int?> InsertarActa(Acta request);
+
+        /// <summary>
+        /// Inserta una lista de mediciones segun el id de la tabla ACTA
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task InsertarMediciones(int idActa, List<Medicion> requests, string usuario);
+
+        /// <summary>
+        /// Lista todos los ids de actas y sus mediciones por usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         Task<List<ActaIds>> GetAllActasIdsPorUsuario(string usuario);
     }
 
@@ -35,6 +52,11 @@ namespace OSIPTEL.Persistence.Layer
             _oracleHelper = oracleHelper;
         }
 
+        /// <summary>
+        /// Inserta un registro de la tabla ACTA
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<int?> InsertarActa(Acta request)
         {
             OracleConnection context = null;
@@ -103,6 +125,11 @@ namespace OSIPTEL.Persistence.Layer
             return idActa;
         }
 
+        /// <summary>
+        /// Inserta una lista de mediciones segun el id de la tabla ACTA
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task InsertarMediciones(int idActa, List<Medicion> requests, string usuario)
         {
             OracleConnection context = null;
@@ -182,6 +209,12 @@ namespace OSIPTEL.Persistence.Layer
             }
         }
 
+
+        /// <summary>
+        /// Lista todos los ids de actas y sus mediciones por usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public async Task<List<ActaIds>> GetAllActasIdsPorUsuario(string usuario)
         {
             OracleConnection context = null;

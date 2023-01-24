@@ -31,6 +31,12 @@ namespace OSIPTEL.Essiv.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Inserta un registro de la tabla ACTA junto con 
+        /// todas sus mediciones en la tabla MEDICION
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -52,7 +58,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Lista todos los ids de actas y sus mediciones por usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         [HttpGet("")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

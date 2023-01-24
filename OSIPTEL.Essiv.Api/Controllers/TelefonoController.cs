@@ -25,6 +25,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Obtiene la lista de todos los teléfonos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -58,6 +62,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Genera la lista en cache, si no existe, para un acceso mas rapido
+        /// </summary>
+        /// <param name="list"></param>
         private void GenerateCache(List<TelefonoDto> list)
         {
             string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Cache");
@@ -73,6 +81,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene la lista que esta en cache, si existe.
+        /// </summary>
+        /// <param name="list"></param>
         private List<TelefonoDto>? GetFromCache()
         {
             if (!System.IO.File.Exists(cachePath))
@@ -93,6 +105,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             return JsonSerializer.Deserialize<List<TelefonoDto>?>(strJson);
         }
 
+        /// <summary>
+        /// Obtiene una lista de telefonos de forma paginada
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpGet("paginar")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -117,6 +134,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Actualiza un registro de telefono
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("{idTelefonoCelular}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -135,6 +157,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Elimina un registro de telefono
+        /// </summary>
+        /// <param name="idTelefonoCelular"></param>
+        /// <returns></returns>
         [HttpDelete("{idTelefonoCelular}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

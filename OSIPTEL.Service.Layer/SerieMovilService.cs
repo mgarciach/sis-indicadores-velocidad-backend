@@ -7,6 +7,10 @@ namespace OSIPTEL.Service.Layer
 {
     public interface ISerieMovilService
     {
+        /// <summary>
+        /// Obtiene la lista de serie móvil válidos
+        /// </summary>
+        /// <returns></returns>
         Task<List<SerieMovilDto>> GetAllSerieMovil();
     }
     public class SerieMovilService: ISerieMovilService
@@ -23,6 +27,10 @@ namespace OSIPTEL.Service.Layer
             _logger = logger;
         }
 
+        /// <summary>
+        /// Obtiene la lista de serie móvil válidos
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<SerieMovilDto>> GetAllSerieMovil()
         {
             var result = new List<SerieMovilDto>();

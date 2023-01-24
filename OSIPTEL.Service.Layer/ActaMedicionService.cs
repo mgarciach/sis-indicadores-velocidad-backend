@@ -13,7 +13,19 @@ namespace OSIPTEL.Service.Layer
 {
     public interface IActaMedicionService
     {
+        /// <summary>
+        /// Inserta un registro de la tabla ACTA junto con 
+        /// todas sus mediciones en la tabla MEDICION
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task InsertarActaMedicion(ActaDto request);
+
+        /// <summary>
+        /// Lista todos los ids de actas y sus mediciones por usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         Task<List<ActaIdsDto>> GetAllActasIdsPorUsuario(string usuario);
 
     }
@@ -31,6 +43,12 @@ namespace OSIPTEL.Service.Layer
             _logger = logger;
         }
 
+        /// <summary>
+        /// Inserta un registro de la tabla ACTA junto con 
+        /// todas sus mediciones en la tabla MEDICION
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task InsertarActaMedicion(ActaDto request)
         {
             
@@ -52,6 +70,11 @@ namespace OSIPTEL.Service.Layer
 
         }
 
+        /// <summary>
+        /// Lista todos los ids de actas y sus mediciones por usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public async Task<List<ActaIdsDto>> GetAllActasIdsPorUsuario(string usuario) {
             var result = new List<ActaIdsDto>();
             try

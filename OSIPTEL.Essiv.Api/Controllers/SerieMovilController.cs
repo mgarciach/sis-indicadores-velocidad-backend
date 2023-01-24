@@ -26,6 +26,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Obtiene la lista de serie móvil válidos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -60,6 +64,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Genera la lista en cache, si no existe, para un acceso mas rapido
+        /// </summary>
+        /// <param name="list"></param>
         private void GenerateCache(List<SerieMovilDto> list)
         {
             string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Cache");
@@ -75,6 +83,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene la lista que esta en cache, si existe.
+        /// </summary>
+        /// <param name="list"></param>
         private List<SerieMovilDto>? GetFromCache()
         {
             if (!System.IO.File.Exists(cachePath))

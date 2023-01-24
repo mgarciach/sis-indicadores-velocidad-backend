@@ -18,6 +18,12 @@ namespace OSIPTEL.Essiv.Api.Controllers
         {
         }
 
+        /// <summary>
+        /// sube una plantilla de acta en formato word
+        /// </summary>
+        /// <param name="nombrePlantilla"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("plantilla")]
         public async Task<IActionResult> UploadPlantilla([FromForm] string nombrePlantilla, IFormFile file)
@@ -58,6 +64,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// descarga una plantilla de acta en formato word
+        /// </summary>
+        /// <param name="nombrePlantilla"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("plantilla/descargar/{nombrePlantilla}")]
         public async Task<IActionResult> DownloadPlantilla([FromRoute] string nombrePlantilla)
@@ -92,6 +103,10 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Genera las plantillas de las actas en formato zip
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("plantillas/zip")]
         public async Task<IActionResult> DescargarPlantillasZip()

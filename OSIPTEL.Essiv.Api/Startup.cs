@@ -81,16 +81,6 @@ namespace OSIPTEL.Essiv.Api
             services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<OracleHelper>();
 
-            //Services
-            services.AddTransient<ICentroPobladoService, CentroPobladoService>();
-            services.AddTransient<IAplicacionCentroPobladoAdo, AplicacionCentroPobladoAdo>();
-
-            services.AddTransient<ICuadriculaService, CuadriculaService>();
-            services.AddTransient<IAplicacionCuadriculaAdo, AplicacionCuadriculaAdo>();
-
-            services.AddTransient<IPoligonoService, PoligonoService>();
-            services.AddTransient<IAplicacionPoligonoAdo, AplicacionPoligonoAdo>();
-
             services.AddTransient<ISerieMovilService, SerieMovilService>();
             services.AddTransient<IAplicacionSerieMovilAdo, AplicacionSerieMovilAdo>();
 

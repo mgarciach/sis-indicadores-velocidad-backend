@@ -9,6 +9,10 @@ namespace OSIPTEL.Persistence.Layer
 {
     public interface IAplicacionSerieMovilAdo
     {
+        /// <summary>
+        /// Obtiene la lista de serie móvil válidos
+        /// </summary>
+        /// <returns></returns>
         Task<List<SerieMovil>> GetAllSerieMovil();
     }
 
@@ -29,6 +33,10 @@ namespace OSIPTEL.Persistence.Layer
             _oracleHelper = oracleHelper;
         }
 
+        /// <summary>
+        /// Obtiene la lista de serie móvil válidos
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<SerieMovil>> GetAllSerieMovil()
         {
             OracleConnection context = null;
