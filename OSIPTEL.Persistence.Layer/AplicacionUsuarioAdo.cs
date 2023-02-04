@@ -44,7 +44,7 @@ namespace OSIPTEL.Persistence.Layer
                 //response = MapToValue();
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ACCESO.PKG_ACCESO.SP_VALIDAR_USUARIO", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ACCESO.SP_VALIDAR_USUARIO", context))
                     {
                         try
                         {
