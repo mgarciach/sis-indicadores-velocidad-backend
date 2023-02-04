@@ -79,7 +79,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_TABLAS_MAESTRAS", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_TABLAS_MAESTRAS", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -120,7 +120,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_TABLA_MAESTRA_MANT", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_TABLA_MAESTRA_MANT", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -162,7 +162,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_TABLA_MAE_DET_MANT", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_TABLA_MAE_DET_MANT", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTablaMaestra", OracleType.Number, ParameterDirection.Input, idTablaMaestra));
@@ -204,7 +204,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_INSERTAR_TABLA_MAESTRA_DET", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_INSERTAR_TABLA_MAESTRA_DET", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTablaMaestra", OracleType.Number, ParameterDirection.Input, request.IdTablaMaestra));
@@ -243,7 +243,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_ACTUALIZAR_TABLA_MAE_DET", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_ACTUALIZAR_TABLA_MAE_DET", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTablaMaestraDetalle", OracleType.Number, ParameterDirection.Input, request.IdTablaMaestraDetalle));
@@ -282,7 +282,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_ELIMINAR_TABLA_MAE_DET", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_ELIMINAR_TABLA_MAE_DET", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTablaMaestraDetalle", OracleType.Number, ParameterDirection.Input, idTablaMaestraDetalle));

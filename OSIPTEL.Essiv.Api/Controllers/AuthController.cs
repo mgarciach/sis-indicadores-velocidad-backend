@@ -49,6 +49,9 @@ namespace OSIPTEL.Essiv.Api.Controllers
         public async Task<IActionResult> GetValidUsuario([FromBody] UsuarioValidDto model)
         {
             model.Aplicacion = _appSettings.Aplicacion.strAplicacion;
+            var keysCifrado = _configuration.GetSection("KeysCifrado").Get<KeysCifrado>();
+            model.Password = DecryptHelper.DecryptString(model.Password, keysCifrado);
+
             var datUser = new UsuarioDto();
             var datPerfil = new List<PerfilDto>();
             //var datServicio = new List<ServicioDto>();

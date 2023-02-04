@@ -86,7 +86,7 @@ namespace OSIPTEL.Persistence.Layer
                 //response = MapToValue();
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ACCESO.PKG_ACCESO.SP_OBTENER_USUARIO", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ACCESO.SP_OBTENER_USUARIO", context))
                     {
                         try
                         {
@@ -132,7 +132,7 @@ namespace OSIPTEL.Persistence.Layer
                 //response = MapToValue();
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ACCESO.PKG_ACCESO.SP_OBTENER_PERFIL_X_USUARIO", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ACCESO.SP_OBTENER_PERFIL_X_USUARIO", context))
                     {
                         try
                         {
@@ -179,7 +179,7 @@ namespace OSIPTEL.Persistence.Layer
             {
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ACCESO.PKG_GLOBAL.SP_OBTENER_GLOBAL", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_GLOBAL.SP_OBTENER_GLOBAL", context))
                     {
                         try
                         {

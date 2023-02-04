@@ -47,5 +47,6 @@ namespace OSIPTEL.DomainDto.Layer
         public string? Observacion { get; set; }
         public string? Grupo2022_2 { get; set; }
         public DateTime? FechaEnvio { get; set; }
+        public string Usuario { get; set; }
     }
 }

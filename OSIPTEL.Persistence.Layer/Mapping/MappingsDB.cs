@@ -68,11 +68,8 @@ namespace OSIPTEL.Persistence.Layer.Mapping
                     ModeloComercial = _oracleHelper.getString(reader, "MODELO_COMERCIAL"),
                     Serie = _oracleHelper.getString(reader, "SERIE"),
                     Descripcion = _oracleHelper.getString(reader, "DESCRIPCION"),
-                    UbicacionActualDepartamento = _oracleHelper.getString(reader, "UBICACION_ACTUAL_DEPARTAMENTO"),
-                    UbicacionActualPersona = _oracleHelper.getString(reader, "UBICACION_ACTUAL_PERSONA"),
                     EstadoTelefono = _oracleHelper.getString(reader, "ESTADO_TELEFONO"),
                     Observacion = _oracleHelper.getString(reader, "OBSERVACION"),
-                    Grupo2022_2 = _oracleHelper.getString(reader, "GRUPO_2022_2"),
                     FechaEnvio = _oracleHelper.getDateTime(reader, "FECHA_ENVIO"),
                 });
             }
@@ -151,11 +148,8 @@ namespace OSIPTEL.Persistence.Layer.Mapping
                     ModeloComercial = _oracleHelper.getString(reader, "MODELO_COMERCIAL"),
                     Serie = _oracleHelper.getString(reader, "SERIE"),
                     Descripcion = _oracleHelper.getString(reader, "DESCRIPCION"),
-                    UbicacionActualDepartamento = _oracleHelper.getString(reader, "UBICACION_ACTUAL_DEPARTAMENTO"),
-                    UbicacionActualPersona = _oracleHelper.getString(reader, "UBICACION_ACTUAL_PERSONA"),
                     EstadoTelefono = _oracleHelper.getString(reader, "ESTADO_TELEFONO"),
                     Observacion = _oracleHelper.getString(reader, "OBSERVACION"),
-                    Grupo2022_2 = _oracleHelper.getString(reader, "GRUPO_2022_2"),
                     FechaEnvio = _oracleHelper.getDateTimeNull(reader, "FECHA_ENVIO"),
                     Total = _oracleHelper.getInt32(reader, "TOTAL"),
                 });

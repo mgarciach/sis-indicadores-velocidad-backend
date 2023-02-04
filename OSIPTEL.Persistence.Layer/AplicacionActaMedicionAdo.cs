@@ -66,7 +66,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_INSERTAR_ACTA", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_INSERTAR_ACTA", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -141,7 +141,7 @@ namespace OSIPTEL.Persistence.Layer
                 {
                     foreach (var request in requests)
                     {
-                        using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_INSERTAR_MEDICION", context))
+                        using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_INSERTAR_MEDICION", context))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -225,7 +225,7 @@ namespace OSIPTEL.Persistence.Layer
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
 
-                    using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_IDS_GUID_ACTAS", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_IDS_GUID_ACTAS", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, usuario));
@@ -251,7 +251,7 @@ namespace OSIPTEL.Persistence.Layer
                     {
                         var mediciones = new List<MedicionIds>();
 
-                        using (OracleCommand cmd = new OracleCommand("ESIGAII.PKG_ESIGAII.SP_LISTAR_IDS_GUID_MEDICIONES", context))
+                        using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_IDS_GUID_MEDICIONES", context))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.Add(_oracleHelper.getParam("sIdActa", OracleType.VarChar, ParameterDirection.Input, acta.IdActa));
