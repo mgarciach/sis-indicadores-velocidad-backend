@@ -56,5 +56,6 @@ namespace OSIPTEL.Domain.Layer
 		public bool EsEliminado { get; set; }
 		public string? Usuario { get; set; }
 		public DateTime? FechaCreacion { get; set; }
+		public int? IdApp { get; set; }
 	}
 }
