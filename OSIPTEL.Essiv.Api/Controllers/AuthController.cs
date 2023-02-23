@@ -8,6 +8,7 @@ using OSIPTEL.Domain.Layer;
 using OSIPTEL.DomainDto.Layer;
 using OSIPTEL.Essiv.Api.Config;
 using OSIPTEL.Service.Layer;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -24,11 +25,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
         private readonly AppSettings _appSettings;
 
         public AuthController(
-           IUsuarioService usuarioService,
-           ILogger<TablaMaestraController> logger,
-           IConfiguration configuration,
-           IOptions<AppSettings> appSettings
-       )
+            IUsuarioService usuarioService,
+            ILogger<TablaMaestraController> logger,
+            IConfiguration configuration,
+            IOptions<AppSettings> appSettings
+        )
         {
             _usuarioService = usuarioService;
             _logger = logger;
@@ -42,7 +43,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         /// <response code="200">Cuando el recurso es validado correctamente. Adicionalmente, retorna el recurso validado (objeto).</response>
-        /// <response code="400">Cuando los parámetros de entrada no han podido ser validados.</response>/// 
+        /// <response code="400">Cuando los parámetros de entrada no han podido ser validados.</response>///
         [HttpPost("login", Name = "GetValidUsuario")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -65,6 +66,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
             var cargo = string.Empty;
             var estado = string.Empty;
             var perfil = new List<PerfilDto>();
+            var refreshToken = string.Empty;
             //var servicio = new List<ServicioDto>();
 
             if (Convert.ToBoolean(_configuration["Dev"]))
@@ -127,6 +129,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                                 cargo = datUser.Cargo;
                                 estado = datUser.Estado;
                                 perfil = datPerfil;
+                                refreshToken = GenerateRefreshToken();
                                 //servicio = datServicio;
                             }
                         }
@@ -145,6 +148,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                         user_perfil = perfil,
                         user_iderror = iderror,
                         user_error = error,
+                        refresh_token = refreshToken,
                         //user_servicio = servicio
                     }
                 );
@@ -156,24 +160,89 @@ namespace OSIPTEL.Essiv.Api.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("refresh-token")]
+        public async Task<IActionResult> RefreshToken(TokenModel tokenModel)
+        {
+            if (tokenModel is null)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            string? accessToken = tokenModel.AccessToken;
+            string? refreshToken = tokenModel.RefreshToken;
+
+            var principal = GetPrincipalFromExpiredToken(accessToken);
+            if (principal == null)
+            {
+                return BadRequest("Invalid access token or refresh token");
+            }
+
+            try
+            {
+                var keysCifrado = _configuration.GetSection("KeysCifrado").Get<KeysCifrado>();
+                var expireTimeStr = DecryptHelper.DecryptString(refreshToken ?? "", keysCifrado);
+                var expireTime = DateTime.ParseExact(expireTimeStr, "yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture);
+                if (expireTime < DateTime.Now)
+                {
+                    throw new Exception("Invalid refresh token");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Invalid refresh token");
+            }
+
+            string username = principal.Identity?.Name ?? "";
+
+            var UserNameClaim = principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+            var NombreClaim = principal.Claims.Where(c => c.Type == ClaimTypes.Name).FirstOrDefault();
+
+            var newAccessToken = Token(new Usuario
+            {
+                UserName = UserNameClaim?.Value ?? "",
+                Nombre = NombreClaim?.Value ?? ""
+            });
+
+            var newRefreshToken = GenerateRefreshToken();
+
+            return new ObjectResult(
+                new
+                {
+                    accessToken = newAccessToken,
+                    refreshToken = newRefreshToken
+                }
+            );
+        }
+
         private string Token(Usuario user)
         {
             var secretKey = _configuration.GetValue<string>("SecretKey");
             var key = Encoding.ASCII.GetBytes(secretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                    new Claim(ClaimTypes.Name, user.Nombre)
-                }),
-                Expires = DateTime.UtcNow.AddDays(365),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Subject = new ClaimsIdentity(
+                    new Claim[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                        new Claim(ClaimTypes.Name, user.Nombre)
+                    }
+                ),
+                Issuer = _configuration["JWT:issuer"],
+                Audience = _configuration["JWT:audience"],
+                Expires = DateTime.UtcNow.AddMinutes(
+                    int.Parse(_configuration["JWT:TokenValidityInMinutes"])
+                ),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var createdToken = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(createdToken);
         }
+
         #region HERLPERS
         private object TestLogin(UsuarioValidDto model)
         {
@@ -194,7 +263,8 @@ namespace OSIPTEL.Essiv.Api.Controllers
 
                 datPerfil = new List<PerfilDto>()
                 {
-                    new PerfilDto() {
+                    new PerfilDto()
+                    {
                         Aplicacion = "ESSIV",
                         Descripcion = "Supervisor",
                         Estado = "Activo",
@@ -218,7 +288,8 @@ namespace OSIPTEL.Essiv.Api.Controllers
 
                 datPerfil = new List<PerfilDto>()
                 {
-                    new PerfilDto() {
+                    new PerfilDto()
+                    {
                         Aplicacion = "SIGAII",
                         Descripcion = "Administrador",
                         Estado = "Activo",
@@ -241,16 +312,73 @@ namespace OSIPTEL.Essiv.Api.Controllers
                 user_estado = datUser?.Estado,
                 user_perfil = datPerfil,
                 user_iderror = datUser == null ? "001" : "000",
-                user_error = datUser == null ? "Acceso Denegado" : "Acceso OK."
+                user_error = datUser == null ? "Acceso Denegado" : "Acceso OK.",
+                refresh_token = datUser == null ? null : GenerateRefreshToken()
             };
         }
 
-        #endregion
+        private string GenerateRefreshToken()
+        {
+            var fechaExpiracion = DateTime.Now.AddDays(
+                int.Parse(_configuration["JWT:RefreshTokenValidityInDays"])
+            ).ToString("yyyy-MM-dd HH:mm:ss");
+            var keysCifrado = _configuration.GetSection("KeysCifrado").Get<KeysCifrado>();
+            return DecryptHelper.EncriptString(fechaExpiracion, keysCifrado);
+        }
 
+        private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
+        {
+            try
+            {
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidAudience = _configuration["JWT:audience"],
+                    ValidateIssuer = true,
+                    ValidIssuer = _configuration["JWT:issuer"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretKey"))
+                    ),
+                    ValidateLifetime = false
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var principal = tokenHandler.ValidateToken(
+                    token,
+                    tokenValidationParameters,
+                    out SecurityToken securityToken
+                );
+                if (
+                    securityToken is not JwtSecurityToken jwtSecurityToken
+                    || !jwtSecurityToken.Header.Alg.Equals(
+                        SecurityAlgorithms.HmacSha256,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                )
+                {
+                    throw new SecurityTokenException("Invalid token");
+                }
+
+                return principal;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        #endregion
     }
 
     public class TextRequest
     {
         public string Text { get; set; }
+    }
+
+    public class TokenModel
+    {
+        public string? AccessToken { get; set; }
+        public string? RefreshToken { get; set; }
     }
 }

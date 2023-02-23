@@ -42,7 +42,7 @@ namespace OSIPTEL.Essiv.Api.Config
 
             // simple-free-encryption-tool hashes key to ensure it's of the correct length
             
-            return Convert.ToBase64String(EncryptStringToBytes(
+            return Convert.ToHexString(EncryptStringToBytes(
                 text,
                 RawBytesFromString(keys.Key),
                 RawBytesFromString(keys.Iv)
