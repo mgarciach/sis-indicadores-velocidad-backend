@@ -340,7 +340,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretKey"))
                     ),
-                    ValidateLifetime = false
+                    ValidateLifetime = true
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();

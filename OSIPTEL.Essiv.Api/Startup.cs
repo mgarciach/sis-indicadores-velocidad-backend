@@ -116,8 +116,11 @@ namespace OSIPTEL.Essiv.Api
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:audience"],
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["JWT:issuer"],
+                    ValidateLifetime = true
                 };
             });
 
