@@ -236,7 +236,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature
-                )
+                ),
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var createdToken = tokenHandler.CreateToken(tokenDescriptor);
@@ -340,7 +340,8 @@ namespace OSIPTEL.Essiv.Api.Controllers
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretKey"))
                     ),
-                    ValidateLifetime = true
+                    ValidateLifetime = false,
+                    //ClockSkew = TimeSpan.Zero
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();

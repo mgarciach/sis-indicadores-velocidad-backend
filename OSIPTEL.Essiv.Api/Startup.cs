@@ -120,7 +120,8 @@ namespace OSIPTEL.Essiv.Api
                     ValidAudience = Configuration["JWT:audience"],
                     ValidateIssuer = true,
                     ValidIssuer = Configuration["JWT:issuer"],
-                    ValidateLifetime = true
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 
