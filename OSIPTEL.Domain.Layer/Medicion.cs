@@ -56,6 +56,12 @@ namespace OSIPTEL.Domain.Layer
 		public bool EsEliminado { get; set; }
 		public string? Usuario { get; set; }
 		public DateTime? FechaCreacion { get; set; }
+		public bool? TieneOtroValorNivelIntensidad { get; set; }
+		public string? NivelIntensidadOtroValor { get; set; }
+		public bool? TieneOtroValorTasaPerdidaPaquetes { get; set; }
+		public string? TasaPerdidaPaquetesOtroValor { get; set; }
 		public int? IdApp { get; set; }
+		public bool? TieneOtroValorIdApp { get; set; }
+		public string? IdAppOtroValor { get; set; }
 	}
 }

@@ -189,6 +189,15 @@ namespace OSIPTEL.Persistence.Layer
                             cmd.Parameters.Add(_oracleHelper.getParam("sDireccionInstalacion", OracleType.VarChar, ParameterDirection.Input, request.DireccionInstalacion));
                             cmd.Parameters.Add(_oracleHelper.getParam("sGuid", OracleType.VarChar, ParameterDirection.Input, request.Guid));
                             cmd.Parameters.Add(_oracleHelper.getParam("sGuidActa", OracleType.VarChar, ParameterDirection.Input, request.GuidActa));
+                            // Nuevos Campos
+                            cmd.Parameters.Add(_oracleHelper.getParam("sTieneOtroValorNivelIntensidad", OracleType.Number, ParameterDirection.Input, request.TieneOtroValorNivelIntensidad == true ? 1 : 0));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sNivelIntensidadOtroValor", OracleType.VarChar, ParameterDirection.Input, request.NivelIntensidadOtroValor));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sTieneOtroValorTasaPP", OracleType.Number, ParameterDirection.Input, request.TieneOtroValorTasaPerdidaPaquetes == true ? 1 : 0));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sTasaPerdidaPaquetesOtroValor", OracleType.VarChar, ParameterDirection.Input, request.TasaPerdidaPaquetesOtroValor));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sIdApp", OracleType.Number, ParameterDirection.Input, request.IdApp));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sTieneOtroValorIdApp", OracleType.Number, ParameterDirection.Input, request.TieneOtroValorIdApp == true ? 1 : 0));
+                            cmd.Parameters.Add(_oracleHelper.getParam("sIdAppOtroValor", OracleType.VarChar, ParameterDirection.Input, request.IdAppOtroValor));
+                            // Fin Nuevos Campos
                             cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, usuario));
                             cmd.Parameters.Add(_oracleHelper.getParam("sFechaCreacion", OracleType.DateTime, ParameterDirection.Input, DateTime.Now));
 
