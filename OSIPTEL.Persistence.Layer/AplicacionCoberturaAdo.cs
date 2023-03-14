@@ -52,7 +52,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_COBERTURA", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ESIGAII.SP_LISTAR_COBERTURA", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));

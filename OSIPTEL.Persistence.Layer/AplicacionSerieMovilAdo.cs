@@ -46,7 +46,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_SERIE_MOVIL", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ESIGAII.SP_LISTAR_SERIE_MOVIL", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));

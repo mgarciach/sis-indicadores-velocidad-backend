@@ -165,11 +165,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
         [HttpDelete("mantenimiento/{id}/detalle/{idTablaMaestraDetalle}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> EliminarTablaMaestraDetalle([FromRoute] int idTablaMaestraDetalle)
+        public async Task<IActionResult> EliminarTablaMaestraDetalle([FromRoute] int idTablaMaestraDetalle, [FromBody] TablaMaestraDetalleMantRequestDto request)
         {
             try
             {
-                await _tablaMaestraService.EliminarTablaMaestraDetalle(idTablaMaestraDetalle);
+                await _tablaMaestraService.EliminarTablaMaestraDetalle(idTablaMaestraDetalle, request);
                 return Ok();
             }
             catch (Exception ex)

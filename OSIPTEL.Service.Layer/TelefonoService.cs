@@ -34,7 +34,7 @@ namespace OSIPTEL.Service.Layer
         /// </summary>
         /// <param name="idTelefonoCelular"></param>
         /// <returns></returns>
-        Task EliminarTelefono(int idTelefonoCelular);
+        Task EliminarTelefono(int idTelefonoCelular, TelefonoRequestDto request);
     }
     public class TelefonoService : ITelefonoService
     {
@@ -115,11 +115,12 @@ namespace OSIPTEL.Service.Layer
         /// </summary>
         /// <param name="idTelefonoCelular"></param>
         /// <returns></returns>
-        public async Task EliminarTelefono(int idTelefonoCelular)
+        public async Task EliminarTelefono(int idTelefonoCelular, TelefonoRequestDto request)
         {
             try
             {
-                await _aplicacionTelefonoAdo.EliminarTelefono(idTelefonoCelular);
+                var entry = Mapper.Map<TelefonoRequest>(request);
+                await _aplicacionTelefonoAdo.EliminarTelefono(idTelefonoCelular, entry);
             }
             catch (Exception ex)
             {

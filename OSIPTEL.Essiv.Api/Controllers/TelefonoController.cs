@@ -165,11 +165,11 @@ namespace OSIPTEL.Essiv.Api.Controllers
         [HttpDelete("{idTelefonoCelular}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> EliminarTelefono([FromRoute] int idTelefonoCelular)
+        public async Task<IActionResult> EliminarTelefono([FromRoute] int idTelefonoCelular, [FromBody] TelefonoRequestDto request)
         {
             try
             {
-                await _telefonoService.EliminarTelefono(idTelefonoCelular);
+                await _telefonoService.EliminarTelefono(idTelefonoCelular, request);
                 return Ok();
             }
             catch (Exception ex)

@@ -46,7 +46,7 @@ namespace OSIPTEL.Service.Layer
         /// </summary>
         /// <param name="idTablaMaestraDetalle"></param>
         /// <returns></returns>
-        Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle);
+        Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle, TablaMaestraDetalleMantRequestDto request);
     }
     public class TablaMaestraService : ITablaMaestraService
     {
@@ -172,11 +172,12 @@ namespace OSIPTEL.Service.Layer
         /// </summary>
         /// <param name="idTablaMaestraDetalle"></param>
         /// <returns></returns>
-        public async Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle)
+        public async Task EliminarTablaMaestraDetalle(int idTablaMaestraDetalle, TablaMaestraDetalleMantRequestDto request)
         {
             try
             {
-                await _aplicacionTablaMaestraAdo.EliminarTablaMaestraDetalle(idTablaMaestraDetalle);
+                var entry = Mapper.Map<TablaMaestraDetalleMantRequest>(request);
+                await _aplicacionTablaMaestraAdo.EliminarTablaMaestraDetalle(idTablaMaestraDetalle, entry);
             }
             catch (Exception ex)
             {

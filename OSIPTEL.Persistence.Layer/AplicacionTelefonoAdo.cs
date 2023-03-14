@@ -34,7 +34,7 @@ namespace OSIPTEL.Persistence.Layer
         /// </summary>
         /// <param name="idTelefonoCelular"></param>
         /// <returns></returns>
-        Task EliminarTelefono(int idTelefonoCelular);
+        Task EliminarTelefono(int idTelefonoCelular, TelefonoRequest request);
     }
     public class AplicacionTelefonoAdo : IAplicacionTelefonoAdo
     {
@@ -66,7 +66,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_LISTAR_TELEFONOS", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ESIGAII.SP_LISTAR_TELEFONOS", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -107,7 +107,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_PAGINAR_TEL_MANT", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ESIGAII.SP_PAGINAR_TEL_MANT", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, model.UserName));
@@ -152,7 +152,7 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_ACTUALIZAR_TELEFONO", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ESIGAII.SP_ACTUALIZAR_TELEFONO", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTelefonoCelular", OracleType.Number, ParameterDirection.Input, request.IdTelefonoCelular));
@@ -188,7 +188,7 @@ namespace OSIPTEL.Persistence.Layer
         /// </summary>
         /// <param name="idTelefonoCelular"></param>
         /// <returns></returns>
-        public async Task EliminarTelefono(int idTelefonoCelular)
+        public async Task EliminarTelefono(int idTelefonoCelular, TelefonoRequest request)
         {
             OracleConnection context = null;
 
@@ -197,10 +197,12 @@ namespace OSIPTEL.Persistence.Layer
                 Environment.SetEnvironmentVariable("NLS_LANG", ".UTF8");
                 using (context = new OracleConnection(_dbConnection.ConnectionString))
                 {
-                    using (OracleCommand cmd = new OracleCommand("PKG_SSIGAII.SP_ELIMINAR_TELEFONO", context))
+                    using (OracleCommand cmd = new OracleCommand("PKG_ESIGAII.SP_ELIMINAR_TELEFONO", context))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(_oracleHelper.getParam("sIdTelefonoCelular", OracleType.Number, ParameterDirection.Input, idTelefonoCelular));
+                        cmd.Parameters.Add(_oracleHelper.getParam("sUsuario", OracleType.VarChar, ParameterDirection.Input, request.Usuario));
+                        cmd.Parameters.Add(_oracleHelper.getParam("sFecha", OracleType.DateTime, ParameterDirection.Input, DateTime.Now));
 
                         await context.OpenAsync();
                         await cmd.ExecuteNonQueryAsync();
