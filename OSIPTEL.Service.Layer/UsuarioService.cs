@@ -101,6 +101,8 @@ namespace OSIPTEL.Service.Layer
                 {
                     return "Usuario o contraseña incorrecta.";
                 }
+
+                _logger.LogInformation(result);
                 result = strError;
             }
             catch (Exception ex)
@@ -143,6 +145,7 @@ namespace OSIPTEL.Service.Layer
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message + " - " + ex.InnerException);
                 return ex.Message.ToString();
             }
             return "";

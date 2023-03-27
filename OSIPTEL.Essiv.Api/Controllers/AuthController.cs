@@ -188,8 +188,9 @@ namespace OSIPTEL.Essiv.Api.Controllers
                     throw new Exception("Invalid refresh token");
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message + " - " + ex.InnerException);
                 return BadRequest("Invalid refresh token");
             }
 
@@ -363,8 +364,9 @@ namespace OSIPTEL.Essiv.Api.Controllers
 
                 return principal;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message + " - " + ex.InnerException);
                 return null;
             }
         }
