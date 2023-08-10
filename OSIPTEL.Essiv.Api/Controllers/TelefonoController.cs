@@ -36,23 +36,23 @@ namespace OSIPTEL.Essiv.Api.Controllers
         {
             try
             {
-                var cache = GetFromCache();
+                //var cache = GetFromCache();
 
-                if (cache != null)
-                {
-                    return Ok(cache);
-                }
+                //if (cache != null)
+                //{
+                //    return Ok(cache);
+                //}
 
                 var list = await _telefonoService.GetAllTelefono();
-                if (list == null)
-                {
-                    return BadRequest("Acceso denegado");
-                }
-                else
-                {
-                    this.GenerateCache(list);
-                    return Ok(list);
-                }
+                //if (list == null)
+                //{
+                //    return BadRequest("Acceso denegado");
+                //}
+                //else
+                //{
+                //    this.GenerateCache(list);
+                return Ok(list);
+                //}
 
             }
             catch (Exception ex)
