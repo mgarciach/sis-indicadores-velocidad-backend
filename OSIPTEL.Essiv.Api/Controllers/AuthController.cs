@@ -283,7 +283,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                     Nombre = "Melissa Yauricasa Bautista",
                     Email = "myauricasa@osiptel.gob.pe",
                     Area = "Supervisión",
-                    Cargo = "Administrador",
+                    Cargo = "Administrador DFI",
                     Estado = "Activo",
                 };
 
@@ -292,7 +292,7 @@ namespace OSIPTEL.Essiv.Api.Controllers
                     new PerfilDto()
                     {
                         Aplicacion = "SIGAII",
-                        Descripcion = "Administrador",
+                        Descripcion = "Administrador DFI",
                         Estado = "Activo",
                         IdPerfil = 1,
                         Usuario = "myauricasa"

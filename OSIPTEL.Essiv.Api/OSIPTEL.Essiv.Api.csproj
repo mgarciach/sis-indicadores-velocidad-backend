@@ -58,4 +58,6 @@
     <ProjectReference Include="..\OSIPTEL.Service.Layer\OSIPTEL.Service.Layer.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>
